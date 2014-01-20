@@ -43,8 +43,11 @@ class MyWebServer(SocketServer.BaseRequestHandler):
         if "../" in requestData[1]:
             error = ("HTTP/1.1 404 Not Found\n")
             self.request.sendall(error)
-            return  
-        
+            return
+  
+        if "/deep.css" in requestData[1] and "/deep/deep.css" not in requestData[1]:
+            requestData[1] = "/deep" + requestData[1]
+
         filePath = self.append_index(os.getcwd() + baseUrl + requestData[1])
         # Make Sure is is a GET command
         if "GET" != requestData[0]: 
