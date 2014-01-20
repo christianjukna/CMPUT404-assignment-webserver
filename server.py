@@ -32,7 +32,6 @@ class MyWebServer(SocketServer.BaseRequestHandler):
     
     def handle(self):
         self.data = self.request.recv(1024).strip()
-        print ("Got a request of: %s\n" % self.data)
         
         # Split the request for parsing
         # 0 - Request
@@ -55,7 +54,6 @@ class MyWebServer(SocketServer.BaseRequestHandler):
 
         # Handle all the possible requests and respond according to HTTP
         # error codes
-        print filePath
         if os.path.isfile(filePath) and "../" not in filePath :  
             response = ("HTTP/1.1 200 OK\n" +
             "Content-Type: "+self.html_or_css(filePath)+"\n\n"
